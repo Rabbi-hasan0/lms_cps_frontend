@@ -21,26 +21,29 @@ export default function RegisterPage() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+      e.preventDefault();
+      setLoading(true);
+      setError('');
 
-    try {
-      const res = await fetchApi('/auth/local/register', {
-        method: 'POST',
-        body: JSON.stringify(formData),
-      });
+      try {
+        const res = await fetchApi('/auth/local/register', {
+          method: 'POST',
+          body: JSON.stringify(formData),
+        });
 
-      localStorage.setItem('token', res.jwt);
-      localStorage.setItem('user', JSON.stringify(res.user));
+        // LocalStorage পরিষ্কার নিশ্চিত করুন
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
 
-      router.push('/dashboard');
-    } catch (err: any) {
-      setError(err.message || 'Registration failed');
-    } finally {
-      setLoading(false);
-    }
-  };
+        // রিডাইরেক্ট করুন লগইন পেজে
+        router.push('/login');
+        return;
+      } catch (err: any) {
+        setError(err.message || 'Registration failed');
+      } finally {
+        setLoading(false);
+      }
+    };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-900 px-4 py-12">
@@ -66,7 +69,7 @@ export default function RegisterPage() {
               required
               value={formData.username}
               onChange={handleChange}
-              placeholder="Give an unique username"
+              placeholder="Give a unique username"
               className="w-full px-4 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
             />
           </div>
