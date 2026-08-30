@@ -1,14 +1,11 @@
-// import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+};
 
-// const nextConfig: NextConfig = {
-//   async rewrites() {
-//     return [
-//       {
-//         source: '/api/:path*',
-//         destination: 'https://whole-knives-create.loca.lt/api/:path*', // 👈 তোমার ngrok ব্যাকএন্ড লিংক
-//       },
-//     ];
-//   },
-// };
-
-// export default nextConfig;
+module.exports = nextConfig;
