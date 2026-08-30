@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: any = {
+  output: 'standalone',
   typescript: {
     ignoreBuildErrors: true,
   },
